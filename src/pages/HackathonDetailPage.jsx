@@ -212,7 +212,7 @@ const HackathonDetailPage = () => {
                   }}
                 >
                   <img
-                    src={`http://localhost:3000/${image}`}
+                    src={isValidUrl(image) ? `http://localhost:3000/${image}` : ""}
                     alt={`프로젝트 이미지 ${index + 1}`}
                     style={{
                       width: "100%",
@@ -244,7 +244,7 @@ const HackathonDetailPage = () => {
             ) : (
               <VideoWrapper>
                 <video controls width="100%">
-                  <source src={HackathonData.video} type="video/mp4" />
+                  <source src={isValidUrl(HackathonData.video) ? HackathonData.video : ""} type="video/mp4" />
                   <p>비디오 재생을 지원하지 않는 브라우저입니다.</p>
                 </video>
               </VideoWrapper>
@@ -258,7 +258,7 @@ const HackathonDetailPage = () => {
             <ImageWrapper>
                {HackathonData.coverImage ? (
             <img
-              src={`http://localhost:3000/${HackathonData.coverImage}`}
+              src={isValidUrl(HackathonData.coverImage) ? `http://localhost:3000/${HackathonData.coverImage}` : ""}
               style={{
                 width: "100px",
                 height: "100px",
@@ -300,7 +300,7 @@ const HackathonDetailPage = () => {
         <Logo>
           {HackathonData.logo ? (
             <img
-             src={`http://localhost:3000/${HackathonData.logo}`}
+             src={isValidUrl(HackathonData.logo) ? `http://localhost:3000/${HackathonData.logo}` : ""}
              style={{
              width: "100%",
              height: "100%",
@@ -821,3 +821,12 @@ const VideoWrappeer = styled.div`
     text-indent: 1em;
   }
 `;
+
+function isValidUrl(url) {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
