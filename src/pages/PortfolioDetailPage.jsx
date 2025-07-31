@@ -183,7 +183,7 @@ const PortfolioDetailPage = () => {
           <Logo>
               {portfolioData.logo ? (
                 <img
-                  src={`http://localhost:3000/${portfolioData.logo}`}
+                  src={`http://localhost:3000/${encodeURIComponent(portfolioData.logo)}`}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -297,7 +297,7 @@ const PortfolioDetailPage = () => {
                     portfolioData.images.slice(0, 4).map((image, index) => (
                       <ImageBox key={index}>
                         <img
-                          src={`http://localhost:3000/${image}`}
+                          src={`http://localhost:3000/${encodeURIComponent(image)}`}
                           alt={`프로젝트 이미지 ${index + 1}`}
                           style={{
                             width: "100%",

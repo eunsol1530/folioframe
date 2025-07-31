@@ -6,6 +6,8 @@ import cors from "cors";
 import { fileURLToPath } from "url";
 import multer from "multer";
 import bodyParsers from "body-parser";
+import helmet from "helmet"; // Import Helmet for security headers
+import rateLimit from "express-rate-limit"; // Import rate-limit middleware
 
 // __dirname 설정 (ES 모듈 호환)
 const __filename = fileURLToPath(import.meta.url);
@@ -25,11 +27,24 @@ if (!fs.existsSync(uploadDir)) {
 
 app.use(cors());
 app.use(express.json());
+app.use(helmet()); // Use Helmet to set security-related HTTP headers
+
+// Rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+});
+
+app.use(limiter); // Apply rate limiting to all requests
+
 // app.use(bodyParser.urlencoded({ extended: true })); // URL-encoded 요청 처리
 
 // 파일 읽기
 app.post("/read-number", (req, res) => {
   const { filePath } = req.body;
+  if (typeof filePath !== 'string') {
+    return res.status(400).json({ error: "Invalid file path." });
+  }
   const absolutePath = path.resolve(__dirname, filePath); // 절대 경로로 변환
   fs.readFile(absolutePath, "utf8", (err, data) => {
     if (err) {
@@ -46,6 +61,9 @@ app.post("/read-number", (req, res) => {
 // 파일 내용 비우기
 app.post("/truncate-file", (req, res) => {
   const { filePath } = req.body;
+  if (typeof filePath !== 'string') {
+    return res.status(400).json({ error: "Invalid file path." });
+  }
   const absolutePath = path.resolve(__dirname, filePath); // 절대 경로로 변환
   fs.truncate(absolutePath, 0, (err) => {
     if (err) {
@@ -61,6 +79,9 @@ app.post("/truncate-file", (req, res) => {
 //뒤에서 n개의 문자 지우기
 app.post("/remove-from-file-end", (req, res) => {
   const { filePath, numCharsToRemove } = req.body;
+  if (typeof filePath !== 'string' || typeof numCharsToRemove !== 'number') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath); // 절대 경로로 변환
   fs.stat(absolutePath, (err, stats) => {
     if (err) {
@@ -85,6 +106,9 @@ app.post("/remove-from-file-end", (req, res) => {
 // 파일에 글 추가
 app.post("/append-string", (req, res) => {
   const { filePath, string } = req.body;
+  if (typeof filePath !== 'string' || typeof string !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath); // 절대 경로로 변환
   console.log("파일 경로:", absolutePath); // 절대 경로 확인
 
@@ -111,6 +135,9 @@ app.post("/append-string", (req, res) => {
 //파일 뒤에 객체 붙이기
 app.post("/update-file", (req, res) => {
   const { filePath, operation, string } = req.body; // operation 추가
+  if (typeof filePath !== 'string' || typeof operation !== 'string' || typeof string !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath);
 
   fs.readFile(absolutePath, "utf8", (err, data) => {
@@ -143,6 +170,9 @@ app.post("/update-file", (req, res) => {
 // 파일 크기 가져오기
 app.post("/get-file-size", (req, res) => {
   const { filePath } = req.body;
+  if (typeof filePath !== 'string') {
+    return res.status(400).json({ error: "Invalid file path." });
+  }
   const absolutePath = path.resolve(__dirname, filePath); // 절대 경로로 변환
   fs.stat(absolutePath, (err, stats) => {
     if (err) {
@@ -167,6 +197,9 @@ app.post("/get-file-size", (req, res) => {
 app.post("/patch-hits", async (req, res) => {
   try {
     const { filePath, projectId, newHits } = req.body;
+    if (typeof filePath !== 'string' || typeof projectId !== 'string' || typeof newHits !== 'number') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data = await fs.readFile(filePath, "utf8");
@@ -221,6 +254,9 @@ app.post("/patch-hits", async (req, res) => {
 app.post("/patch-hack-hits", async (req, res) => {
   try {
     const { filePath, hackId, newHits } = req.body;
+    if (typeof filePath !== 'string' || typeof hackId !== 'string' || typeof newHits !== 'number') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data = await fs.readFile(filePath, "utf8");
@@ -274,6 +310,9 @@ app.post("/patch-hack-hits", async (req, res) => {
 app.post("/patch-contacts", async (req, res) => {
   try {
     const { filePath1, filePath2, projectId, newContact } = req.body;
+    if (typeof filePath1 !== 'string' || typeof filePath2 !== 'string' || typeof projectId !== 'string' || typeof newContact !== 'string') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data1 = await fs.readFile(filePath1, "utf8");
@@ -352,6 +391,9 @@ app.post("/patch-contacts", async (req, res) => {
 app.post("/patch-likes", async (req, res) => {
   try {
     const { filePath, projectId, userId } = req.body;
+    if (typeof filePath !== 'string' || typeof projectId !== 'string' || typeof userId !== 'string') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data = await fs.readFile(filePath, "utf8");
@@ -405,6 +447,9 @@ app.post("/patch-likes", async (req, res) => {
 app.post("/patch-comments", async (req, res) => {
   try {
     const { filePath, projectId, commentId } = req.body;
+    if (typeof filePath !== 'string' || typeof projectId !== 'string' || typeof commentId !== 'string') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     if (!projectId) return;
 
@@ -462,6 +507,9 @@ app.post("/patch-comments", async (req, res) => {
 app.post("/remove-comments", async (req, res) => {
   try {
     const { filePath, projectId, commentId } = req.body;
+    if (typeof filePath !== 'string' || typeof projectId !== 'string' || typeof commentId !== 'string') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data = await fs.readFile(filePath, "utf8");
@@ -513,6 +561,9 @@ app.post("/remove-comments", async (req, res) => {
 app.post("/patch-participant", async (req, res) => {
   try {
     const { filePath, hackId, userId } = req.body;
+    if (typeof filePath !== 'string' || typeof hackId !== 'string' || typeof userId !== 'string') {
+      return res.status(400).json({ error: "Invalid input." });
+    }
 
     // 파일 읽기
     const data = await fs.readFile(filePath, "utf8");
@@ -574,6 +625,9 @@ app.post("/patch-participant", async (req, res) => {
 
 app.post("/delete-object", (req, res) => {
   const { filePath, idField, id } = req.body;
+  if (typeof filePath !== 'string' || typeof idField !== 'string' || typeof id !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath);
 
   fs.readFile(absolutePath, "utf8", (err, data) => {
@@ -616,6 +670,9 @@ app.post("/delete-object", (req, res) => {
 //뒤에서 4번째 문자가 }인지 확인
 app.post("/check-fourth-last-char", (req, res) => {
   const { filePath } = req.body;
+  if (typeof filePath !== 'string') {
+    return res.status(400).json({ error: "Invalid file path." });
+  }
   const absolutePath = path.resolve(__dirname, filePath);
 
   fs.readFile(absolutePath, "utf8", (err, data) => {
@@ -646,6 +703,9 @@ app.post("/check-fourth-last-char", (req, res) => {
 app.post("/update-user-field", (req, res) => {
   console.log("update-user-field 시작됨");
   const { filePath, idField, id, field, newValue } = req.body;
+  if (typeof filePath !== 'string' || typeof idField !== 'string' || typeof id !== 'string' || typeof field !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath);
 
   fs.readFile(absolutePath, "utf8", (err, data) => {
@@ -685,6 +745,9 @@ app.post("/update-user-field", (req, res) => {
 
 app.post("/update-field", (req, res) => {
   const { filePath, idField, id, field, newValue } = req.body;
+  if (typeof filePath !== 'string' || typeof idField !== 'string' || typeof id !== 'string' || typeof field !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   const absolutePath = path.resolve(__dirname, filePath);
 
   fs.readFile(absolutePath, "utf8", (err, data) => {
@@ -795,6 +858,9 @@ const uploadMultiple = multer({
 
 app.post("/update-project-photo", upload.single("photo"), async (req, res) => {
   var { filePath, projectId, field } = req.body;
+  if (typeof filePath !== 'string' || typeof projectId !== 'string' || typeof field !== 'string') {
+    return res.status(400).json({ error: "Invalid input." });
+  }
   console.log("filePath: ", filePath);
   console.log("projectId:", projectId, typeof projectId);
   const absolutePath = path.resolve(__dirname, filePath);
