@@ -93,7 +93,7 @@ const MainPage = () => {
 
   useEffect(() => {
     // Django 백엔드의 API 호출
-    axios.get('http://127.0.0.1:8000/api/hello/')
+    axios.get('/api/hello/')
       .then(response => {
         setMessage(response.data);  // 응답 데이터를 message 상태로 설정
       })
