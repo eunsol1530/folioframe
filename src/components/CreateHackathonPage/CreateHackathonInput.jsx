@@ -117,7 +117,7 @@ const CreateHackathonInput = ({ onInputChange, formData, onDateChange }) => {
       try {
         // 사진 업로드 호출
         const uploadedPaths = await handleMultipleImageAdd(photosPreview);
-        console.log("업로드된 이미지 경로들:", uploadedPaths); // 확인
+        // console.log("업로드된 이미지 경로들:", uploadedPaths); // 확인
 
         onInputChange({
           target: { name: "pictures", value: uploadedPaths },

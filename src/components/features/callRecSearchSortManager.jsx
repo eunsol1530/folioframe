@@ -45,7 +45,7 @@ class callRecSearchSortManager {
 
   updateContacts(newContacts) {
     this.contacts = newContacts || [];
-    console.log("Updated contacts in manager:", this.contacts);
+    // console.log("Updated contacts in manager:", this.contacts);
   }
 
   doSearch() {

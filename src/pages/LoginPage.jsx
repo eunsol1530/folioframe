@@ -47,7 +47,7 @@ const LoginPage = () => {
     const trimmedPassword = password.trim();
 
     console.log("입력된 이메일 및 아이디 :", trimmedEmail, trimmedId);
-    console.log("입력된 비밀번호 : ", trimmedPassword);
+    // Removed logging of sensitive password
     console.log("더미 데이터:", userInfo);
 
     const promises = userInfo.map(async (value) => {

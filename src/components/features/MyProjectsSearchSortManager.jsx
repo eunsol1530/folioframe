@@ -9,9 +9,9 @@ class MyProjectsSearchSortManager {
   constructor() {
     // this.userId = getCurrentUser();
     const currentUser = getCurrentUser();
-    console.log("Current User Object:", currentUser);
+    // console.log("Current User Object:", currentUser);
     this.userId = currentUser?.id || null;
-    console.log("userId: ", this.userId);
+    // console.log("userId: ", this.userId);
     this.currentPortfolios = new LinkedList();
 
     this.state = {

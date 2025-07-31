@@ -44,7 +44,7 @@ const ModifyHackathonPage = () => {
   useEffect(() => {
     if (currentUser) {
       // setCurrentUser(user);
-      console.log(currentUser);
+      // console.log(currentUser); // Removed logging of sensitive data
     } else {
       console.log("currentUser 없음");
     }

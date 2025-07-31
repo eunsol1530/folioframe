@@ -57,7 +57,7 @@ const ProfileEditPage = () => {
         setCurrentUser(updatedUser); // localStorage에 반영
       }
     }
-    console.log(currentUser);
+    // console.log(currentUser); // Removed for security reasons
   }, [oriUsers]); // oriUsers 변경 시 실행
 
   const handleUpdateName = (newName) => {

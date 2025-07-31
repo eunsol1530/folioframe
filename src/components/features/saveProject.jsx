@@ -86,19 +86,6 @@ export const saveProject = async (
     !challenge ||
     !usedLanguage
   ) {
-    console.log(
-      projectOwnerName,
-      projectOwnerId,
-      projectOwnerNickname,
-      projectOwnerEmail,
-      projectTitle,
-      description,
-      startDate,
-      endDate,
-      solving,
-      challenge,
-      usedLanguage
-    );
     console.log("필수 정보가 누락됨");
     return;
   }
@@ -136,7 +123,7 @@ export const saveProject = async (
     share
   );
   oriProjects.set(projectId, newProject);
-  console.log(newProject);
+  console.log("새 프로젝트가 저장되었습니다.");
 
   // !!! 수정한 코드 문자열로 변환함!!!
   const string = `

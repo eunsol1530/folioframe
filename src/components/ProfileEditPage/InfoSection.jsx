@@ -31,7 +31,7 @@ const InfoSection = ({
 
   const handleSaveClick = () => {
     if (isModified && inputValue.trim()) {
-      console.log(inputValue.trim());
+      // console.log(inputValue.trim()); // Removed logging of sensitive data
       onSave(inputValue.trim());
       setIsEditing(false);
       setIsModified(false);

@@ -8,7 +8,7 @@ export const isRecruiter = (userId) => {
 export const patchContactsByServer = async (filePath1, filePath2, projectId, newContact) => {
 
     try {
-        console.log('Sending request with:', { filePath1, filePath2, projectId, newContact });
+        console.log('Sending request with:', { projectId, newContact }); // Sensitive data removed from logging
         const response = await fetch('http://localhost:3000/patch-contacts', {
           method: 'POST',
           headers: {

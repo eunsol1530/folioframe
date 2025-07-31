@@ -22,7 +22,7 @@ const HackTemplateCard = ({ hackId, templateButton }) => {
   }, [hackId]);
 
   const handleViewClick = () => {
-    console.log(currentUser);
+    // console.log(currentUser); // Removed to prevent logging sensitive data
     console.log("patchHits 불러옴.");
     if (currentUser && hackData) {
       patchHackHits(currentUser.id, hackId);

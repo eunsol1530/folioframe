@@ -126,7 +126,7 @@ const PortfolioDetailPage3 = () => {
 
   useEffect(() => {
     console.log("portfolioData:", portfolioData);
-    console.log("currentUser.email:", currentUser.email);
+    // console.log("currentUser.email:", currentUser.email); // Removed sensitive logging
 
     if (portfolioData && portfolioData.ownerEmail === currentUser.email) {
       console.log("작성자 일치");

@@ -111,8 +111,6 @@ export const saveHackathon = async (
 export const updateHackathon = async (hackId, field, newValue) => {
   const idField = "hackId";
   let hackathon = oriHackathons.get(hackId);
-  console.log(hackId); // 잘 나옴
-  console.log(hackathon); // 변경값으로 잘 나옴
 
   if (!hackathon) {
     console.error(`Hackathon with hackId ${hackId} not found`);
@@ -190,7 +188,6 @@ const deleteHackathon = async (hackId) => {
 
 // 해커톤 지원
 const updateParticipant = async (hackId, userId) => {
-  console.log(typeof hackId);
 
   const hackathon = oriHackathons.get(Number(hackId));
 

@@ -23,7 +23,7 @@ const TemplateCard = ({ portfolioId, templateButton, isButton = true }) => {
 
   const handleViewClick = () => {
     if (isButton === true) {
-      console.log(currentUser);
+      // console.log(currentUser); // Removed logging of sensitive data
       console.log("patchHits 불러옴.");
       if (currentUser && portfolioData) {
         patchHits(currentUser.id, portfolioId); // 조회수 증가 호출

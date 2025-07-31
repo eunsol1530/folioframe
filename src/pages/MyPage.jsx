@@ -39,7 +39,7 @@ function MyPage() {
   useEffect(() => {
     initializeData(); // 데이터를 초기화
     if (currentUser) {
-      console.log("Current User:", currentUser);
+      // console.log("Current User:", currentUser);
 
       // console.log(oriProjects);
       const userProjects = Array.from(oriProjects.values()).filter(

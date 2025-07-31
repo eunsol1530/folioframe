@@ -2,7 +2,7 @@ import { oriProjects } from "../domain/startProgram.js";
 
 const patchLikesByServer = async (filePath, projectId, userId) => {
   try {
-    console.log("Sending request with:", { filePath, projectId, userId });
+    console.log("Sending request to patch likes for a project.");
     const response = await fetch("http://localhost:3000/patch-likes", {
       method: "POST",
       headers: {

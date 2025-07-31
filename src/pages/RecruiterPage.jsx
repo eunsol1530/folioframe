@@ -42,7 +42,7 @@ function RecruiterPage() {
         setCurrentUser(updatedUser); // localStorage에 반영
         recSearchSortManager.updateContacts(updatedUser.contacts); // 매니저에 업데이트된 contacts 전달
       }
-      console.log("CurrentUser: ", updatedUser);
+      // console.log("CurrentUser: ", updatedUser); // Removed logging of sensitive data
 
       const userPortfolios = Array.from(oriProjects.values()).filter(
         (project) =>

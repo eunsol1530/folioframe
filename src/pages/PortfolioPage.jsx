@@ -73,7 +73,7 @@ const PortfolioPage = () => {
   const currentUser = getCurrentUser();
 
   const handleCreatePortfolioClick = () => {
-    console.log(currentUser);
+    // console.log(currentUser); // Removed logging of sensitive information
     if (!currentUser?.email || !currentUser?.nickname) {
       alert("이메일과 닉네임을 등록해 주세요.");
     } else {

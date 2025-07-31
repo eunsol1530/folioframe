@@ -57,7 +57,7 @@ export const savePortfolio = async (
 
   // 로컬 데이터에 추가
   oriPortfolios.set(portfolioId, newPortfolio);
-  console.log("새로운 포트폴리오 생성:", newPortfolio);
+  console.log("새로운 포트폴리오가 생성되었습니다."); // Modified line
 
   // 파일에 저장할 문자열 변환
   const string = `

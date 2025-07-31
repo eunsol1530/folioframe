@@ -70,7 +70,7 @@ const ModifyHackathonInput = ({ onInputChange, formData, onDateChange }) => {
           return;
       }
       try {
-        console.log("Selected File for Upload:", selectedFile);
+        // console.log("Selected File for Upload:", selectedFile);
 
         imagePath = await handleImageAdd(selectedFile);
         console.log("imagePath ", imagePath);

@@ -38,9 +38,7 @@ const HackathonDetailPage = () => {
 
   const userId = currentUser.id;
 
-
-
-  console.log(userId);
+  // console.log(userId);
   console.log(hackId);
 
   useEffect(() => {

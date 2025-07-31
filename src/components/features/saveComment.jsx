@@ -85,7 +85,7 @@ export const saveComment = async (portfolioId, userId, text) => {
     new Date().toISOString().split("T")[0]
   );
   oriComments.set(commentId, newComment);
-  console.log(newComment);
+  console.log(`New comment created with ID: ${commentId}`); // Modified to avoid logging sensitive data
 
   // 파일에 저장할 문자열 형식
   const string = `

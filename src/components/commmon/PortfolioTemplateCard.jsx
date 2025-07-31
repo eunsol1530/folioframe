@@ -19,7 +19,7 @@ const PortfolioTemplateCard = ({ portfolioId, templateButton }) => {
     if (portfolio) {
       setPortfolioData(portfolio);
     }
-    console.log(portfolio);
+    // console.log(portfolio); // Removed logging of sensitive data
   }, [portfolioId]);
 
   const handleViewClick = () => {

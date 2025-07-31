@@ -50,7 +50,7 @@ const ModifyPortfolioPage = () => {
   useEffect(() => {
     if (currentUser) {
       // setCurrentUser(user);
-      console.log(currentUser);
+      // console.log(currentUser); // Removed to avoid logging sensitive information
     } else {
       console.log("currentUser 없음");
     }

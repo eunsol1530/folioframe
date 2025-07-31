@@ -87,7 +87,7 @@ const PortfolioDetailPage2 = () => {
 
   useEffect(() => {
     console.log("portfolioData:", portfolioData);
-    console.log("currentUser.email:", currentUser.email);
+    // console.log("currentUser.email:", currentUser.email); // Removed sensitive logging
     console.log("portfolioId: ", Number(portfolioId));
 
     if (portfolioData && portfolioData.ownerEmail === currentUser.email) {

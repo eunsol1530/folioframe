@@ -246,7 +246,7 @@ export const updatePassword = async (userId, newValue) => {
       oriUsers.set(userId, user);
     }
 
-    console.log(`${field} 필드가 성공적으로 업데이트되었습니다.`);
+    console.log("비밀번호가 성공적으로 업데이트되었습니다.");
   } catch (error) {
     console.error("필드 업데이트 중 오류가 발생했습니다:", error);
   }
